@@ -4,20 +4,19 @@ import { fetchUser } from "../actions/index";
 
 class UserHeader extends React.Component {
   componentDidMount() {
-    //this.props.fetchUser(this.props.userId);
+    if (this.props.userId < 11) {
+      this.props.fetchUser(this.props.userId);
+    }
   }
   render() {
-    console.log("Users", this.props);
-    // const user = this.props.users.find(user => user.id === this.props.userId);
-
-    // if (!user) {
-    //   return <div>null</div>;
-    // }
-    return <div className="header">User Header</div>;
+    if (!this.props.user) {
+      return <div>null</div>;
+    }
+    return <div className="header">{this.props.user.name}</div>;
   }
 }
 
-const mapStateToProps = state => {
-  return { users: state.users };
+const mapStateToProps = (state, ownProps) => {
+  return { user: state.user.find(user => user.id === ownProps.userId) };
 };
 export default connect(mapStateToProps, { fetchUser })(UserHeader);
