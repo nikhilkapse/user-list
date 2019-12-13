@@ -5,7 +5,16 @@ export const fetchPosts = () => {
     const promise = await jsonPlaceholder.get("/posts");
     dispatch({
       type: "FETCH_POSTS",
-      payload: promise
+      payload: promise.data
+    });
+  };
+};
+export const fetchUser = id => {
+  return async dispatch => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+    dispatch({
+      type: "FETCH_USER",
+      payload: response.data
     });
   };
 };
